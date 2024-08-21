@@ -1,0 +1,15 @@
+#destaques {
+    box-sizing: border-box;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#destaques .Banner {
+    min-width: 40vw;
+}
+
+#filtro {}
+
+#lista {}
