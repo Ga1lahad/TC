@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 31/07/2024 às 01:10
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- Tempo de geração: 25/08/2024 às 05:35
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -99,6 +99,17 @@ CREATE TABLE `servicos/chamado` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `tags`
+--
+
+CREATE TABLE `tags` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `tecnico`
 --
 
@@ -148,6 +159,12 @@ ALTER TABLE `servicos/chamado`
   ADD KEY `dk_servico` (`fk_serviço`);
 
 --
+-- Índices de tabela `tags`
+--
+ALTER TABLE `tags`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `tecnico`
 --
 ALTER TABLE `tecnico`
@@ -181,6 +198,12 @@ ALTER TABLE `pessoa`
 --
 ALTER TABLE `servico`
   MODIFY `idServiço` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `tags`
+--
+ALTER TABLE `tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `tecnico`

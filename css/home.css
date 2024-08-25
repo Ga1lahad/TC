@@ -7,9 +7,21 @@
 }
 
 #destaques .Banner {
-    min-width: 40vw;
+    min-width: 65vw;
 }
 
-#filtro {}
+#destaques .Banner img {
+    min-width: inherit;
+}
+
+#filtro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    width: 20vw;
+    height: max-content;
+}
 
 #lista {}
