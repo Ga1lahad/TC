@@ -1,8 +1,4 @@
 <?php
-require_once "conexao.php";
-require_once "classes.php";
-require_once 'home.php';
-// require_once
-// require_once
-// require_once
-// require_once
+spl_autoload_register(function ($classname) {
+    include "./classes/$classname.php";
+});

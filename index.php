@@ -1,7 +1,9 @@
 <?php
-error_reporting(E_ALL);
-// Tela com menos de 420 de Width tem que alterar o layout da logo e User
 require_once "php/autoload.php";
+error_reporting(E_ALL);
+$conn = new Conexao('teste');
+// Tela com menos de 420 de Width tem que alterar o layout da logo e User
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -27,7 +29,7 @@ require_once "php/autoload.php";
             <h1>User</h1>
         </div>
     </div>
-    <?php require_once "html/home.html" ?>
+    <?php require_once "paginas/home.php" ?>
 </body>
 
 </html>

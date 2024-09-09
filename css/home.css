@@ -1,6 +1,7 @@
 #destaques {
     box-sizing: border-box;
-    background-color: black;
+    background-size: cover;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,11 +18,13 @@
 #filtro {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     position: absolute;
     left: 0;
+    border: 2px inset rgba(0, 0, 0, 0.534);
     width: 20vw;
     height: max-content;
+    text-align: center;
 }
 
 #lista {}
