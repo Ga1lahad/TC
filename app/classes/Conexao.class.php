@@ -1,4 +1,10 @@
 <?php
+
+namespace Classes;
+
+use PDO;
+use PDOException;
+
 class Conexao
 {
     private $driver;
@@ -8,9 +14,10 @@ class Conexao
     private $host;
     private static $pdo;
 
-    public function __construct(String $banco)
+    /**Metodo magico construtor para a conexão, Alterado manualmente atraves do switch */
+    function __construct()
     {
-        switch ($banco) {
+        switch ("teste") {
             case 'teste':
                 $this->driver = 'mysql';
                 $this->username = 'root';
@@ -24,6 +31,19 @@ class Conexao
                 break;
         }
     }
+
+    /**Metodo magico set*/
+    function __set($name, $value)
+    {
+        $this->$name = $value;
+    }
+    /**Metodo magico gets*/
+    function __get($name)
+    {
+        return $this->$name;
+    }
+
+    /**Função que cria ou retorna o PDO object baseado na existencia do mesmo, Objeto statico*/
     function conectar()
     {
         try {
