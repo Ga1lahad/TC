@@ -1,7 +1,3 @@
-<?php
-$conn = new Conexao();
-?>
-<link rel="stylesheet" href="css/home.css">
 <div id="destaques"
     style="background-image:url(https://i.pinimg.com/564x/e7/20/39/e72039e3d6de0692816dad4841f440f3.jpg);">
     <span class="bd-blur"></span>
@@ -14,19 +10,17 @@ $conn = new Conexao();
     <form action="">
         <p>Tipos de Serviços</p>
         <?php
-        $tags = new Tag();
-        $tags = $tags->readAll($conn->conectar());
-        foreach ($tags as $tag) {
+        foreach ($categorias as $categoria) {
             // Cria as checkbox para os filtros de serviços
             echo "
-            <div>
-            <label for='" . $tag->id . "'>" . $tag->nome . "</label>
-            <input type='checkbox' id='" . $tag->id . "' name='" . $tag->id . "'>
-            </div>";
+        <div>
+            <label for='" . $categoria->id . "'>" . $categoria->nome . "</label>
+            <input type='checkbox' id='" . $categoria->id . "' name='" . $categoria->id . "'>
+        </div>";
         }
         ?>
     </form>
 </div>
 <div id="lista">
-    <?php require "cards.empresas.html" ?>
+    <?php require "components/cards.empresas.html" ?>
 </div>

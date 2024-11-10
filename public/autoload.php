@@ -1,11 +1,14 @@
 <?php
-require "routes.php";
 spl_autoload_register(function ($classname) {
-    if (file_exists("../classes/$classname.class.php")) {
-        require "../classes/$classname.class.php";
-    } elseif (file_exists("../classes/$classname.dao.php")) {
-        require "../classes/$classname.dao.php";
-    } elseif (file_exists("../classes/$classname.controller.php")) {
-        require "../classes/$classname.controller.php";
+    $classname = strtolower($classname);
+    if (file_exists("../app/$classname.class.php")) {
+        require "../app/$classname.class.php";
+    }
+    if (file_exists("../app/$classname.dao.php")) {
+        require "../app/$classname.dao.php";
+    }
+    if (file_exists('../app/' . $classname . '.php')) {
+        require '../app/' . $classname . '.php';
     }
 });
+require "routes.php";
