@@ -14,6 +14,6 @@ class HomeController
         $categoriaDao = new CategoriaDao($conn->conectar());
         $categorias = $categoriaDao->ListarTodos();
         echo '<link rel="stylesheet" href="css/home.css">';
-        require '../app/view/home.php';
+        require __DIR__ . '/../view/home.php';
     }
 }

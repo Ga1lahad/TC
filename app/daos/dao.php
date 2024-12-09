@@ -13,7 +13,7 @@ abstract class Dao
     /**Retorna um array/arrayDeObjeto com o todos as instancias da tabela*/
     abstract function ListarTodos(): array;
     /**Retorna uma intancia na tabela atraves da pesquisa*/
-    abstract function Listar($busca);
+    abstract function Listar($busca): object;
     /**Atualiza uma instancia ja existente no banco*/
     abstract function Atualizar(object $Obj);
 }

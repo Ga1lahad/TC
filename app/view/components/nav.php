@@ -10,6 +10,8 @@
         </form>
     </div>
     <div class="user">
-        <h1>User</h1>
+        <a href="/u">
+            <h1>User</h1>
+        </a>
     </div>
 </nav>

@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="https://w7.pngwing.com/pngs/801/1015/png-transparent-hammer-computer-icons-hammer-angle-technic-pickaxe-thumbnail.png" type="image/x-icon">
 </head>
 
-<body>
+<body id="body">
     <?php
     require "autoload.php";
     error_reporting(E_ALL);

@@ -6,6 +6,6 @@ class Controller
 {
     static function nav()
     {
-        require '/TC/app/view/components/nav.php';
+        require __DIR__ . '/../view/components/nav.php';
     }
 }

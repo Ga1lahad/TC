@@ -5,6 +5,7 @@ namespace Daos;
 
 use Classes\Categoria;
 use Daos\Dao;
+use Exception;
 use PDO;
 use PDOException;
 
@@ -49,7 +50,13 @@ class CategoriaDao extends Dao
         return $categorias;
     }
 
-    function Listar($busca) {}
+    function Listar($busca): Categoria
+    {
+        throw new Exception("Metodo não implementdao ainda", 1);
+
+        $c = new Categoria;
+        return $c;
+    }
 
     function Atualizar(object $Obj) {}
 }
