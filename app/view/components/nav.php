@@ -10,7 +10,7 @@
         </form>
     </div>
     <div class="user">
-        <a href="/u">
+        <a href="/log">
             <h1>User</h1>
         </a>
     </div>

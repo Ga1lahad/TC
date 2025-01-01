@@ -12,7 +12,15 @@ switch ($url) {
         break;
     case '/u':
         Controller::nav();
-        UserController::index();
+        UserController::user();
+        break;
+    case '/log':
+        Controller::nav();
+        UserController::login();
+        break;
+    case '/cad':
+        Controller::nav();
+        UserController::cadastro();
         break;
 
     default:

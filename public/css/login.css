@@ -1,5 +1,5 @@
 .login {
-    margin: 20px 35vw 10px 35vw;
+    margin: 20px 25vw 10px 25vw;
 }
 
 .cadastro {
@@ -11,13 +11,46 @@
     background-color: rgba(0, 0, 0, 0.3);
     display: grid;
     padding: 1rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
+
+    b {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: red;
+    }
+
+    fieldset {
+        display: grid;
+        border: groove;
+        border-color: rgba(0, 0, 0, 0.4);
+        padding: 10px;
+    }
+
+    .olho {
+        overflow: hidden;
+        position: relative;
+        bottom: 33px;
+        margin-right: 1rem;
+        width: 2rem;
+        height: 2rem;
+        background-color: rgba(0, 0, 0, 0);
+        border: none;
+
+        svg {
+            width: 100%;
+
+            height: 100%;
+        }
+
+
+
+    }
 
     input {
-        background-color: rgb(0, 0, 0, 0.1);
+        /* background-color: rgb(0, 0, 0, 0.1); */
         height: 2rem;
         border-radius: 10px;
-        padding-left: 1rem;
+        padding-left: 3rem;
         font-size: 1.5rem;
     }
 
@@ -29,7 +62,19 @@
     }
 
     a {
+        color: black;
+        text-decoration: none;
+        text-align: center;
+        font-size: 1.3rem;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .alerta {
         text-align: center;
         font-size: 1rem;
+        color: rgba(250, 50, 50, 1);
     }
 }

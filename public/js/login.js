@@ -10,7 +10,7 @@ document.getElementById("cpf").addEventListener('input', function (event) {
         this.value += "-"
     } else { return }
 });
-
+/**Aplicação de mascara on key up para correção de bug da implementação anterion on input */
 document.getElementById("cpf").addEventListener('keyup', function (event) {
     if (event.key === "Backward") {
         return
@@ -40,4 +40,21 @@ document.getElementById("cpf").addEventListener('keyup', function (event) {
         }
     }
     else { return }
+});
+//Responsaveis pelo olho e visualização da senha.
+document.getElementById("olho-aberto").addEventListener('mouseleave', function (event) {
+    let olhoFechado = document.getElementById("olho-fechado");
+    olhoFechado.style.setProperty("display", "block");
+    let olhoAberto = document.getElementById("olho-aberto");
+    olhoAberto.style.setProperty("display", "none");
+    //altera visao da senha
+    document.getElementById("senha").type = "password"
+});
+document.getElementById("olho-fechado").addEventListener('mouseenter', function (event) {
+    let olhoFechado = document.getElementById("olho-fechado");
+    olhoFechado.style.setProperty("display", "none");
+    let olhoAberto = document.getElementById("olho-aberto");
+    olhoAberto.style.setProperty("display", "block");
+    //altera visao da senha
+    document.getElementById("senha").type = "text"
 });
