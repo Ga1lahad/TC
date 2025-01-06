@@ -100,10 +100,6 @@ document.getElementById("formularioCadastro").addEventListener('submit', functio
         event.preventDefault();
     }
 });
-/**Invoca a Api de Cep apos o campo perder o foco */
-document.getElementById("cep").addEventListener('focusout', function (event) {
-    pesquisacep(document.getElementById("cep").value)
-});
 /**Limita o numero max de caracteres no numero da casa */
 document.getElementById("numero").addEventListener('input', function (event) {
     if (this.value.length > 4) { this.value = this.value.slice(0, 4); }
@@ -169,7 +165,7 @@ function pesquisacep(valor) {
 
         //Valida o formato do CEP.
         if (validacep.test(cep)) {
-
+            document.getElementById("alerta-cep").style.setProperty("display", "none");
             //Preenche os campos com "..." enquanto consulta webservice.
             document.getElementById('rua').value = "...";
             document.getElementById('bairro').value = "...";
@@ -185,12 +181,13 @@ function pesquisacep(valor) {
 
             //Insere script no documento e carrega o conteúdo.
             document.body.appendChild(script);
-
+            valido = true;
         } //end if.
         else {
             //cep é inválido.
             limpa_formulário_cep();
-            alert("Formato de CEP inválido.");
+            document.getElementById("alerta-cep").style.setProperty("display", "block");
+            valido = false;
         }
     } //end if.
     else {

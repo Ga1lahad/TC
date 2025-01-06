@@ -1,5 +1,4 @@
 <form action="" method="post" class=" login login-active">
-
     <div class="form-body">
         <h2>Login</h2>
         <label for="cpf">CPF</label>
@@ -18,7 +17,7 @@
         </label>
         <br>
         <button type="submit" name="login-sub">Entrar</button>
-        <a href="   ">Cadastrar-se</a>
+        <a href="/cad">Cadastrar-se</a>
         <a href="">Esqueceu a senha (Não implementado ainda)</a>
     </div>
 </form>

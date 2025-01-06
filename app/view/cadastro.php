@@ -17,8 +17,8 @@
 
             <legend>Endereço</legend>
 
-            <label>Cep</label>
-            <input required name="cep" type="text" id="cep" value="" " maxlength=" 9"
+            <label>Cep <b id="alerta-cep" style="display:none;">Invalido</b></label>
+            <input required name="cep" type="text" id="cep" value="" maxlength="10"
                 onblur="pesquisacep(this.value);" />
             <label>Rua</label>
             <input required name="rua" type="text" id="rua" />
@@ -65,6 +65,6 @@
         <p id="alertaDados" class="alerta" style="display:none;">Dados invalidos</p>
         <br>
         <button id="btnCadastro" type="submit" name="cadastro-sub">Cadastrar</button>
-        <a href="/log">Entrar</a>
+        <a href="/log">Login</a>
     </div>
 </form>
