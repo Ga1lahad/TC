@@ -1,6 +1,6 @@
 /**Responsavel por expandir e retrair os respectivos menus*/
 var estadoinfo = false;
-var estadoopcoes = false;
+var estadopagina = false;
 var estadofuncadm = false;
 document.getElementById("informacoes").addEventListener('click', function (event) {
     let fechado = document.getElementById("fechado-informacao");
@@ -18,38 +18,7 @@ document.getElementById("informacoes").addEventListener('click', function (event
     }
 });
 
-document.getElementById("opcoes").addEventListener('click', function (event) {
-    let fechado = document.getElementById("fechado-opcoes");
-    let aberto = document.getElementById("aberto-opcoes");
-    if (estadoopcoes) {
-        estadoopcoes = false;
-        aberto.style.setProperty("display", "none");
-        document.getElementById("opcao-card").style.setProperty('display', "none");
-        fechado.style.setProperty("display", "block");
-    } else {
-        estadoopcoes = true;
-        aberto.style.setProperty("display", "block");
-        document.getElementById("opcao-card").style.setProperty('display', "block");
-        fechado.style.setProperty("display", "none");
 
-    }
-});
-
-document.getElementById("funcoesadm").addEventListener('click', function (event) {
-    let fechado = document.getElementById("fechado-funcoesadm");
-    let aberto = document.getElementById("aberto-funcoesadm");
-    if (estadofuncadm) {
-        estadofuncadm = false;
-        aberto.style.setProperty("display", "none");
-        document.getElementById("funcao-card").style.setProperty('display', "none");
-        fechado.style.setProperty("display", "block");
-    } else {
-        estadofuncadm = true;
-        aberto.style.setProperty("display", "block");
-        document.getElementById("funcao-card").style.setProperty('display', "block");
-        fechado.style.setProperty("display", "none");
-    }
-});
 /**Eventos controladores dos olhos para apresentar senha*/
 document.getElementById("olho-aberto").addEventListener('mouseout', function (event) {
     let olhoFechado = document.getElementById("olho-fechado");
@@ -103,43 +72,6 @@ document.getElementById("olho-fechado3").addEventListener('mouseenter', function
 document.getElementById("numero").addEventListener('input', function (event) {
     if (this.value.length > 4) { this.value = this.value.slice(0, 4); }
 });
-/**Mascara de CNPJ creditos para https://gist.github.com/fernandovaller/b10a3be0e7b3b46e5895b0f0e75aada5 */
-document.getElementById("cnpj").addEventListener('input', function (event) {
-    if (this.value.length > 18) {
-        this.value = this.value.substring(0, this.value.length - 1)
-    } else {
-        let v = this.value;
-        v = v.replace(/\D/g, "")                           //Remove tudo o que não é dígito
-        v = v.replace(/^(\d{2})(\d)/, "$1.$2")             //Coloca ponto entre o segundo e o terceiro dígitos
-        v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3") //Coloca ponto entre o quinto e o sexto dígitos
-        v = v.replace(/\.(\d{3})(\d)/, ".$1/$2")           //Coloca uma barra entre o oitavo e o nono dígitos
-        v = v.replace(/(\d{4})(\d)/, "$1-$2")              //Coloca um hífen depois do bloco de quatro dígitos
-        this.value = v;
-    }
-});
-/**Api De CNPJ */
-document.getElementById("cnpj").addEventListener('blur', function (event) {
-    let cnpj = this.value.replace(/\D/g, '');
-    if (cnpj.length === 14) {
-        const data = null;
-
-        const xhr = new XMLHttpRequest();
-
-        xhr.addEventListener('readystatechange', function () {
-            if (this.readyState === this.DONE) {
-                document.getElementById("dados_cnpj").innerHTML = this.responseText
-            }
-        });
-
-        xhr.open('GET', '/cnpj?cnpj=' + cnpj);
-        xhr.setRequestHeader('Accept', 'application/json');
-        xhr.send();
-    } else {
-        console.log("CNPJ Invalido")
-    }
-
-})
-
 /**Event Listener para impedir a inserção de qualquer letra no lugar do Cpf */
 document.getElementById("cpf").addEventListener('input', function (event) {
     if (this.value.replace(/[^0-9]/g, '').length == 11) {
@@ -215,72 +147,3 @@ function Valida(cpf) {
     if (Resto != parseInt(cpf.substring(10, 11))) return false;
     return true;
 }
-/**VIACEP Code
- * --------------------------------------------------------------------------------------------------
-*/
-function limpa_formulário_cep() {
-    //Limpa valores do formulário de cep.
-    document.getElementById('rua').value = ("");
-    document.getElementById('bairro').value = ("");
-    document.getElementById('cidade').value = ("");
-    document.getElementById('uf').value = ("");
-}
-
-function meu_callback(conteudo) {
-    if (!("erro" in conteudo)) {
-        //Atualiza os campos com os valores.
-        document.getElementById('rua').value = (conteudo.logradouro);
-        document.getElementById('bairro').value = (conteudo.bairro);
-        document.getElementById('cidade').value = (conteudo.localidade);
-        document.getElementById('uf').value = (conteudo.uf);
-    } //end if.
-    else {
-        //CEP não Encontrado.
-        limpa_formulário_cep();
-        alert("CEP não encontrado.");
-    }
-}
-
-function pesquisacep(valor) {
-
-    //Nova variável "cep" somente com dígitos.
-    var cep = valor.replace(/\D/g, '');
-
-    //Verifica se campo cep possui valor informado.
-    if (cep != "") {
-
-        //Expressão regular para validar o CEP.
-        var validacep = /^[0-9]{8}$/;
-
-        //Valida o formato do CEP.
-        if (validacep.test(cep)) {
-            document.getElementById("alerta-cep").style.setProperty("display", "none");
-            //Preenche os campos com "..." enquanto consulta webservice.
-            document.getElementById('rua').value = "...";
-            document.getElementById('bairro').value = "...";
-            document.getElementById('cidade').value = "...";
-            document.getElementById('uf').value = "...";
-
-
-            //Cria um elemento javascript.
-            var script = document.createElement('script');
-
-            //Sincroniza com o callback.
-            script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
-
-            //Insere script no documento e carrega o conteúdo.
-            document.body.appendChild(script);
-            valido = true;
-        } //end if.
-        else {
-            //cep é inválido.
-            limpa_formulário_cep();
-            document.getElementById("alerta-cep").style.setProperty("display", "block");
-            valido = false;
-        }
-    } //end if.
-    else {
-        //cep sem valor, limpa formulário.
-        limpa_formulário_cep();
-    }
-};

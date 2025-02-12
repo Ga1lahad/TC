@@ -30,32 +30,40 @@
 }
 
 #lista {
-    width: 75vw;
-    padding: 0px 0px 0vw 22vw;
+    width: calc(99vw - 5px);
+    padding-inline: 5px;
     display: flex;
     flex-direction: column;
     font-size: larger;
-}
 
-#lista .card {
-    border: 1px solid rgba(0, 0, 0, 0.534);
-    margin: 0px 0px 1rem 0px;
-}
+    .card {
+        border: 1px solid rgba(0, 0, 0, 0.534);
+        margin: 0px 0px 1rem 0px;
+    }
 
-#lista .card-body {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-decoration: none;
-    color: #000;
-}
+    .card-body {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-decoration: none;
+        color: #000;
+        background-color: rgba(0, 0, 0, 0.3);
 
-#lista .card-body img {
-    max-width: 85px;
-    max-height: 85px;
-}
+        img {
+            max-width: 150px;
+            max-height: 150px;
+        }
 
-.card-body:hover {
-    border: 2px inset rgba(24, 121, 0, 0.5);
-    transition: border 0.1s;
+
+    }
+
+    #sobre {
+        text-align: start;
+        padding: 3rem;
+    }
+
+    .card-body:hover {
+        border: 2px inset rgba(24, 121, 0, 0.5);
+        transition: border 0.1s;
+    }
 }

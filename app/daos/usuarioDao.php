@@ -2,6 +2,7 @@
 
 namespace Daos;
 
+use Classes\Mailer;
 use Classes\Usuario;
 use Exception;
 use PDO;
@@ -18,19 +19,42 @@ class UsuarioDao extends Dao
     /**Insere no banco o Usuario e retorna o id gerado pelo banco */
     function Inserir(object $Obj)
     {
+        $cpf = $Obj->cpf;
+        $nome = $Obj->nome;
+        $telefone = $Obj->telefone;
+        $cep = $Obj->cep;
+        $endereco = $Obj->endereco;
+        $email = $Obj->email;
+        $senha = $Obj->senha;
         try {
-            $stmt = $this->pdo->prepare("INSERT INTO usuario (nome, cpf, telefone, endereço, email,senha) VALUES(?,?,?,?,?,?);");
-            $stmt->bindParam(1, $Obj->nome);
-            $stmt->bindParam(2, $Obj->cpf);
-            $stmt->bindParam(3, $Obj->telefone);
-            $stmt->bindParam(4, $Obj->endereco);
-            $stmt->bindParam(5, $Obj->email);
-            $stmt->bindParam(6, $Obj->senha);
+            $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM usuarios WHERE cpf = ?");
+            $stmt->bindParam(1, $cpf);
             $stmt->execute();
-            return $this->pdo->lastInsertId();
-        } catch (PDOException $e) {
+            $cpfExiste = $stmt->fetchColumn();
 
-            echo "<script>alert('Erro na inserção do banco de dados')</script>";
+            if ($cpfExiste > 0) {
+                throw new Exception("Cpf Ja cadastrado", 1);
+            }
+            $stmt = $this->pdo->prepare("INSERT INTO usuarios (nome, cpf, telefone, cep,endereco, email, senha) VALUES(?,?,?,?,?,?,?);");
+
+            $stmt->bindParam(1, $nome);
+            $stmt->bindParam(2, $cpf);
+            $stmt->bindParam(3, $telefone);
+            $stmt->bindParam(4, $cep);
+            $stmt->bindParam(5, $endereco);
+            $stmt->bindParam(6, $email);
+            $stmt->bindParam(7, $senha);
+            $stmt->execute();
+            try {
+                Mailer::Email(trim($email), "Confirmação de Cadastro", ["token" => $cpf], "Confirmacao");
+            } catch (Exception $e) {
+                throw new Exception("Erro ao Enviar Email de verificação: $e", 1);
+            }
+        } catch (PDOException | Exception $e) {
+            echo "<script>
+            alert('" . $e->getMessage() . "')
+            window.location.href = 'log'
+            </script>";
         }
     }
     /**Metodo de remoção para usuario não implementado */
@@ -42,7 +66,7 @@ class UsuarioDao extends Dao
     function ListarTodos(): array
     {
         $usuarios = array();
-        $stmt = $this->pdo->prepare("SELECT id FROM usuario");
+        $stmt = $this->pdo->prepare("SELECT id FROM usuarios");
         foreach ($stmt->fetchAll() as $usuario) {
             $u = new Usuario;
             $u->id = $usuario;
@@ -52,7 +76,7 @@ class UsuarioDao extends Dao
     }
     function Listar($id): Usuario
     {
-        $stmt = $this->pdo->prepare("SELECT id,nome,email,telfone,endereco FROM usuario WHERE id = ?");
+        $stmt = $this->pdo->prepare("SELECT id,nome,email,telfone,endereco FROM usuarios WHERE id = ?");
         $stmt->bindParam(1, $id);
         $dados = $stmt->fetch();
         $u = new Usuario;
@@ -60,4 +84,16 @@ class UsuarioDao extends Dao
         return $u;
     }
     function Atualizar(object $Obj) {}
+    function Autorizar($user, $pass)
+    {
+        $stmt = $this->pdo->prepare("SELECT id,nome FROM usuarios  WHERE cpf = ? AND senha = ?");
+        $stmt->bindValue(1, $user);
+        $stmt->bindValue(2, $pass);
+        $stmt->execute();
+        $dados = $stmt->fetch();
+        if (!$dados) {
+            throw new Exception('Usuario Invalido', 403);
+        }
+        return $dados;
+    }
 }

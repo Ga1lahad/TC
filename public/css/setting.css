@@ -66,7 +66,8 @@
         fieldset {
             width: 100%;
             display: grid;
-            padding: 1vh 2vw 1vh 2vw;
+            margin-inline: 5px;
+            padding: 1vh 1vw 1vh 1vw;
         }
 
         span {
@@ -81,6 +82,24 @@
             input {
                 padding-left: 1.9rem;
             }
+        }
+    }
+
+    #logout-span {
+        margin: 30px 0px 30px 0px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        button {
+            background-color: rgba(0, 0, 0, 0.3);
+            font-weight: 700;
+            padding: 1%;
+
+        }
+
+        button:hover {
+            background-color: rgba(0, 0, 0, 0.5);
         }
     }
 }

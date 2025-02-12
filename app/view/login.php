@@ -1,4 +1,4 @@
-<form action="" method="post" class=" login login-active">
+<form id="login" action="" method="post" class=" login login-active">
     <div class="form-body">
         <h2>Login</h2>
         <label for="cpf">CPF</label>

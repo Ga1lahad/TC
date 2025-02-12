@@ -1,4 +1,4 @@
-<form id="formularioCadastro" action="" method="post" class=" login">
+<form id="formularioCadastro" action="/cad" method="post" class=" login">
     <div class="form-body">
         <h2>Cadastro de Usuario</h2>
 
@@ -12,26 +12,24 @@
         <input required id="email" type="email" name="email" autocomplete="email">
 
         <label for="tele">Telefone</label>
-        <input required id="tele" type="tele" name="tele" autocomplete="tel-national">
+        <input required id="tele" type="tele" name="tele" autocomplete="tel-national" maxlength="15">
         <fieldset>
 
             <legend>Endereço</legend>
 
-            <label>Cep <b id="alerta-cep" style="display:none;">Invalido</b></label>
+            <label>Cep <b id="alerta-cep1" style="display:none;">Invalido</b></label>
             <input required name="cep" type="text" id="cep" value="" maxlength="10"
-                onblur="pesquisacep(this.value);" />
+                onblur="pesquisacep(this.value,1);" />
             <label>Rua</label>
-            <input required name="rua" type="text" id="rua" />
-
+            <input required name="rua" type="text" id="rua1" />
             <label>Numero</label>
-            <input required name="numero" type="number" id="numero">
-
+            <input required name="numero" type="number" id="numero1">
             <label>Bairro</label>
-            <input required name="bairro" type="text" id="bairro" " />
+            <input required name="bairro" type="text" id="bairro1" " />
             <label>Cidade</label>
-            <input required name=" cidade" type="text" id="cidade" " />
+            <input required name=" cidade" type="text" id="cidade1" " />
             <label>Estado</label>
-            <input required name=" uf" type="text" id="uf" />
+            <input required name=" uf" type="text" id="uf1" />
         </fieldset>
 
         <label for="senha">Senha</label>
@@ -62,7 +60,7 @@
             </svg>
         </label>
         <p id="alertaSenhas" class="alerta" style="display:none;">As senhas não conferem, tente novamente</p>
-        <p id="alertaDados" class="alerta" style="display:none;">Dados invalidos</p>
+        <p id="alertaDados" class="alerta" style="display:none;">Dados invalidos, tente inserir-los novamente </p>
         <br>
         <button id="btnCadastro" type="submit" name="cadastro-sub">Cadastrar</button>
         <a href="/log">Login</a>

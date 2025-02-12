@@ -1,6 +1,5 @@
-<h1 id="titulo">TEMPLATE NOME DO USUARIO</h1>
+<h1 id="titulo"><?php echo $_SESSION["nome"]; ?></h1>
 <div id="main">
-    <p></p>
     <br>
     <div id="informacoes" class="card">
         <h1>Informações da Conta</h1>
@@ -75,24 +74,23 @@
             </span>
             <br>
             <fieldset>
-
                 <legend>Endereço</legend>
 
-                <label>Cep <b id="alerta-cep" style="display:none;">Invalido</b></label>
-                <input name="cep" type="text" id="cep" value="" maxlength="10"
-                    onblur="pesquisacep(this.value);" />
+                <label>Cep <b id="alerta-cep0" style="display:none;">Invalido</b></label>
+                <input name="cep0" type="text" id="cep0" value="" maxlength="10"
+                    onblur="pesquisacep(this.value,0);" />
                 <label>Rua</label>
-                <input name="rua" type="text" id="rua" />
+                <input name="rua0" type="text" id="rua0" />
 
                 <label>Numero</label>
                 <input name="numero" type="number" id="numero">
 
                 <label>Bairro</label>
-                <input name="bairro" type="text" id="bairro" " />
+                <input name="bairro0" type="text" id="bairro0" " />
             <label>Cidade</label>
-            <input  name=" cidade" type="text" id="cidade" " />
+            <input  name=" cidade0" type="text" id="cidade0" " />
             <label>Estado</label>
-            <input  name=" uf" type="text" id="uf" />
+            <input  name=" uf0" type="text" id="uf0" />
             </fieldset>
             <button name="subForm" type="submit">
                 Salvar Alterações
@@ -101,54 +99,9 @@
     </div>
     <!-- ------------------------------------- -->
     <hr>
-    <div id="opcoes" class="card">
-        <h1>Opções</h1>
-        <span class="setas">
-            <svg id="fechado-opcoes" style="display: block;" width="2.5rem" height="2.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9.71069 18.2929C10.1012 18.6834 10.7344 18.6834 11.1249 18.2929L16.0123 13.4006C16.7927 12.6195 16.7924 11.3537 16.0117 10.5729L11.1213 5.68254C10.7308 5.29202 10.0976 5.29202 9.70708 5.68254C9.31655 6.07307 9.31655 6.70623 9.70708 7.09676L13.8927 11.2824C14.2833 11.6729 14.2833 12.3061 13.8927 12.6966L9.71069 16.8787C9.32016 17.2692 9.32016 17.9023 9.71069 18.2929Z" fill="#0F0F0F" />
-            </svg>
-            <svg id="aberto-opcoes" style="display: none;" width="2.5rem" height="2.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" fill="#0F0F0F" />
-            </svg>
-    </div>
-    <div id="opcao-card" class="card inner" style="display: none;">
-        <form id="form-opcao" class="formulario"
-            action="">
-
-
-        </form>
-    </div>
-    <!-- ------------------------------------- -->
-    <hr>
-    <div id="funcoesadm" class="card">
-        <h1>Funções Administrativas</h1>
-        <span class="setas">
-            <svg id="fechado-funcoesadm" style="display: block;" width="2.5rem" height="2.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9.71069 18.2929C10.1012 18.6834 10.7344 18.6834 11.1249 18.2929L16.0123 13.4006C16.7927 12.6195 16.7924 11.3537 16.0117 10.5729L11.1213 5.68254C10.7308 5.29202 10.0976 5.29202 9.70708 5.68254C9.31655 6.07307 9.31655 6.70623 9.70708 7.09676L13.8927 11.2824C14.2833 11.6729 14.2833 12.3061 13.8927 12.6966L9.71069 16.8787C9.32016 17.2692 9.32016 17.9023 9.71069 18.2929Z" fill="#0F0F0F" />
-            </svg>
-            <svg id="aberto-funcoesadm" style="display: none;" width="2.5rem" height="2.5rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" fill="#0F0F0F" />
-            </svg>
-        </span>
-    </div>
-    <div id="funcao-card" class="card inner" style="display: none;">
-        <form id="form-funcaoadm" class="formulario" action="">
-            <fieldset>
-                <legend>Cadastrar como prestador de serviço
-                </legend>
-                <label for="cnpj">CNPJ</label>
-                <input id="cnpj" name="cnpj" type="text">
-                <div id="dados_cnpj"></div>
-            </fieldset>
-        </form>
-    </div>
+    <button href="/atualizaEmpresa">Atualizar Pagina da Empresa</button>
+    <button href="/cadEmpresa">Cadastrar empresa</button>
+    <span id="logout-span">
+        <button href="/logout">Fazer Logout</button>
+    </span>
 </div>
-<?php
-$to = "brunodevoficial@gmail.com";
-$subject = "Teste";
-$txt = "Hello world!";
-$headers = "From: brunodevoficial@localhost.com";
-
-mail($to, $subject, $txt, $headers);
-phpinfo();
-?>

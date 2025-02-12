@@ -7,6 +7,8 @@
 }
 
 .form-body {
+    margin-top: 10vh;
+    margin-bottom: 35vh;
     border-radius: 7px;
     background-color: rgba(0, 0, 0, 0.3);
     display: grid;

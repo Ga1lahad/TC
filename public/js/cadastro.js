@@ -1,14 +1,26 @@
-var valido = false;
+var cpfvalido = false;
+var senhavalido = false;
+var cepvalido = false;
+
+document.getElementById('tele').addEventListener('input', function (e) {
+    let v = e.target.value.replace(/\D/g, ''); // Remove tudo que não for número
+
+    if (v.length >= 11) {
+        v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3'); // Formato (99) 99999-9999
+    } else {
+        v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3'); // Formato (99) 9999-9999
+    }
+
+    e.target.value = v;
+});
+
 /**Event Listener para impedir a inserção de qualquer letra no lugar do Cpf */
 document.getElementById("cpf").addEventListener('input', function (event) {
-    console.log(this.value.replace(/[^0-9]/g, '').length);
     if (this.value.replace(/[^0-9]/g, '').length == 11) {
         if (Valida(this.value.replace(/[^0-9]/g, ''))) {
             document.getElementById("alerta-cpf").style.setProperty("display", "none");
-            valido = true;
         } else {
             document.getElementById("alerta-cpf").style.setProperty("display", "block");
-            valido = false;
         }
     } else { document.getElementById("alerta-cpf").style.setProperty("display", "none"); }
 
@@ -88,21 +100,27 @@ document.getElementById("olho-fechado2").addEventListener('mouseenter', function
 });
 /**Liberação para cadastro no caso de senhas caso iguais */
 document.getElementById("formularioCadastro").addEventListener('submit', function (event) {
+    event.preventDefault();
+    let cpf = document.getElementById("cpf").value.replace(/\D/g, "")
     let senha = document.getElementById("senha");
     let outraSenha = document.getElementById("confirmar-senha");
     document.getElementById("alertaSenhas").style.setProperty("display", "none");
+    senhavalido = true
     if (senha.value !== outraSenha.value) {
-        event.preventDefault();
+        senhavalido = false;
         document.getElementById("alertaSenhas").style.setProperty("display", "block");
-    }
-    if (!valido) {
+    } else if (!Valida(cpf)) {
+        cpfvalido = false;
         document.getElementById("alertaDados").style.setProperty("display", "block");
-        event.preventDefault();
+        alert("CPF Invalido, Verifique e tente novamente")
+    } else if (!cepvalido) {
+        alert("Parece que ha algo de errado com seu CEP, verifique e tente novamente")
     }
-});
-/**Limita o numero max de caracteres no numero da casa */
-document.getElementById("numero").addEventListener('input', function (event) {
-    if (this.value.length > 4) { this.value = this.value.slice(0, 4); }
+
+    if (cpfvalido && senhavalido && cepvalido) {
+        this.submit();
+    } else {
+    }
 });
 /**Teste de CPF
  * --------------------------------------------------------------------------------------------------
@@ -124,26 +142,28 @@ function Valida(cpf) {
 
     if ((Resto == 10) || (Resto == 11)) Resto = 0;
     if (Resto != parseInt(cpf.substring(10, 11))) return false;
+    cpfvalido = true;
     return true;
 }
+var CAMPO;
 /**VIACEP Code
  * --------------------------------------------------------------------------------------------------
 */
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
-    document.getElementById('rua').value = ("");
-    document.getElementById('bairro').value = ("");
-    document.getElementById('cidade').value = ("");
-    document.getElementById('uf').value = ("");
+    document.getElementById('rua' + CAMPO).value = ("");
+    document.getElementById('bairro' + CAMPO).value = ("");
+    document.getElementById('cidade' + CAMPO).value = ("");
+    document.getElementById('uf' + CAMPO).value = ("");
 }
 
 function meu_callback(conteudo) {
     if (!("erro" in conteudo)) {
         //Atualiza os campos com os valores.
-        document.getElementById('rua').value = (conteudo.logradouro);
-        document.getElementById('bairro').value = (conteudo.bairro);
-        document.getElementById('cidade').value = (conteudo.localidade);
-        document.getElementById('uf').value = (conteudo.uf);
+        document.getElementById('rua' + CAMPO).value = (conteudo.logradouro);
+        document.getElementById('bairro' + CAMPO).value = (conteudo.bairro);
+        document.getElementById('cidade' + CAMPO).value = (conteudo.localidade);
+        document.getElementById('uf' + CAMPO).value = (conteudo.uf);
     } //end if.
     else {
         //CEP não Encontrado.
@@ -152,8 +172,9 @@ function meu_callback(conteudo) {
     }
 }
 
-function pesquisacep(valor) {
-
+function pesquisacep(valor, campo) {
+    cepvalido = false;
+    CAMPO = campo;
     //Nova variável "cep" somente com dígitos.
     var cep = valor.replace(/\D/g, '');
 
@@ -165,12 +186,12 @@ function pesquisacep(valor) {
 
         //Valida o formato do CEP.
         if (validacep.test(cep)) {
-            document.getElementById("alerta-cep").style.setProperty("display", "none");
+            document.getElementById("alerta-cep" + CAMPO).style.setProperty("display", "none");
             //Preenche os campos com "..." enquanto consulta webservice.
-            document.getElementById('rua').value = "...";
-            document.getElementById('bairro').value = "...";
-            document.getElementById('cidade').value = "...";
-            document.getElementById('uf').value = "...";
+            document.getElementById('rua' + CAMPO).value = "...";
+            document.getElementById('bairro' + CAMPO).value = "...";
+            document.getElementById('cidade' + CAMPO).value = "...";
+            document.getElementById('uf' + CAMPO).value = "...";
 
 
             //Cria um elemento javascript.
@@ -181,13 +202,13 @@ function pesquisacep(valor) {
 
             //Insere script no documento e carrega o conteúdo.
             document.body.appendChild(script);
-            valido = true;
+            cepvalido = true;
         } //end if.
         else {
             //cep é inválido.
             limpa_formulário_cep();
-            document.getElementById("alerta-cep").style.setProperty("display", "block");
-            valido = false;
+            document.getElementById("alerta-cep" + CAMPO).style.setProperty("display", "block");
+
         }
     } //end if.
     else {

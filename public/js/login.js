@@ -1,3 +1,38 @@
+document.addEventListener("DOMContentLoaded", function (event) {
+    const USER = document.getElementById("cpf");
+    const PASS = document.getElementById("senha");
+    document.getElementById("login").addEventListener("submit", async function (event) {
+        event.preventDefault();
+        USER.removeAttribute("style");
+        let UserLogin = USER.value.replace(/\D/g, "");
+        let PassLogin = PASS.value;
+        if (UserLogin.length == 11) {
+            let user = await criptografa(UserLogin);
+            let pass = await criptografa(PassLogin);
+            const xhr = new XMLHttpRequest();
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    window.location.href = "/";
+                }
+            };
+            xhttp.open("GET", "/auth?user=" + user + "&pass=" + pass, true);
+            xhttp.send();
+        }
+        else {
+            USER.setAttribute("style", "border-color: red;");
+        }
+    })
+})
+/**Função de criptografia SHA2568*/
+async function criptografa(valor) {
+    let encoder = new TextEncoder();
+    valor = encoder.encode(valor)
+    valor = await crypto.subtle.digest('SHA-256', valor);
+    valor = Array.from(new Uint8Array(valor));
+    return valor.map(b => b.toString(16).padStart(2, '0')).join('');
+}
 // Event Listener para impedir a inserção de qualquer letra no lugar do Cpf
 document.getElementById("cpf").addEventListener('input', function (event) {
     if (event.inputType === "deleteContentBackward") {

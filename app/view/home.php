@@ -1,26 +1,31 @@
 <div id="destaques"
-    style="background-image:url(https://i.pinimg.com/564x/e7/20/39/e72039e3d6de0692816dad4841f440f3.jpg);">
+    style="background-image:url(/imgs/homebanner.png)">
     <span class="bd-blur"></span>
     <div class="Banner">
-        <img src="https://i.pinimg.com/564x/e7/20/39/e72039e3d6de0692816dad4841f440f3.jpg" alt="">
+        <img src="/imgs/homebanner.png" alt="">
     </div>
 </div>
-<div id="filtro">
+<!-- <div id="filtro">
     <b>Filtros</b>
     <form action="">
         <p>Tipos de Serviços</p>
         <?php
-        foreach ($categorias as $categoria) {
-            // Cria as checkbox para os filtros de serviços
-            echo "
-        <div>
-            <label for='" . $categoria->id . "'>" . $categoria->nome . "</label>
-            <input type='checkbox' id='" . $categoria->id . "' name='" . $categoria->id . "'>
-        </div>";
-        }
+        // foreach ($categorias as $categoria) {
+        //     // Cria as checkbox para os filtros de serviços
+        //     echo "
+        // <div>
+        //     <label for='" . $categoria->id . "'>" . $categoria->nome . "</label>
+        //     <input type='checkbox' id='" . $categoria->id . "' name='" . $categoria->id . "'>
+        // </div>";
+        // }
         ?>
     </form>
-</div>
+</div> -->
+<br>
 <div id="lista">
-    <?php require "components/cards.empresas.html" ?>
+    <?php
+    foreach ($lista as $empresa) {
+        echo "<br>";
+        require "components/cards.empresas.php";
+    } ?>
 </div>
